@@ -22,9 +22,10 @@ Route::view('/register', 'auth.register')
 Route::get('/users', [UsersController::class, 'index']);
 Route::get('/users/create', [UsersController::class, 'create']);
 Route::post('/users', [UsersController::class, 'store']);
+Route::get('/users/{id}', [UsersController::class, 'show']);
 Route::get('/users/{id}/edit', [UsersController::class, 'edit']);
 Route::put('/users/{id}', [UsersController::class, 'update']);
-Route::delete('/users/{id}', [UsersController::class, 'delete']);
+Route::delete('/users/{id}', [UsersController::class, 'delete']);;
 Route::get('/teachers', [TeachersController::class, 'index']);
 Route::get('/students', [StudentsController::class, 'index']);
 Route::get('/courses', [CoursesController::class, 'index']);
