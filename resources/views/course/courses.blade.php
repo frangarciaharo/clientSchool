@@ -9,12 +9,14 @@
             <div class="mb-6">
                 <h1 class="text-3xl font-semibold text-gray-800">Courses</h1>
                 <p class="text-gray-500 text-sm">Gestión de los cursos</p>
+                <a href="/courses/create" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
+                    Agregar Curso
+                </a>
             </div>
 
             <div class="bg-white shadow-md rounded-2xl p-6">
                 
                 @if(isset($data) && count($data) > 0)
-
                     <div class="space-y-4">
                         @foreach ($data as $item)
                             <div class="flex justify-between items-center p-4 border border-gray-200 rounded-xl hover:shadow-sm transition">
@@ -31,15 +33,17 @@
                                     <a href="/courses/{{$item['codeCourse']}}" class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition">
                                         <span class="material-symbols-outlined text-xl">visibility</span>
                                     </a>
-                                    <a href="#" class="flex items-center gap-2 text-indigo-600 hover:text-green-800 transition">
+                                    <a href="/courses/{{$item['codeCourse']}}/edit" class="flex items-center gap-2 text-indigo-600 hover:text-green-800 transition">
                                         <span class="material-symbols-outlined text-xl">edit</span>
                                     </a>
-                                    <a href="#" class="flex items-center gap-2 text-indigo-600 hover:text-red-800 transition">
-                                        <span class="material-symbols-outlined text-xl">delete</span>
-                                    </a>
+                                    <form action="/courses/{{$item['codeCourse']}}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-gray-400 hover:text-red-600 transition cursor-pointer">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </form>
                                 </div>
-
-
                             </div>
                         @endforeach
                     </div>
