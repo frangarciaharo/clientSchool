@@ -62,7 +62,7 @@
                                                     <span class="material-symbols-outlined">edit</span>
                                                 </a>
 
-                                                  <form action="/students/{{$item['code']}}" method="POST" class="inline">
+                                                <form action="/students/{{$item['code']}}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-gray-400 hover:text-red-600 transition cursor-pointer">
