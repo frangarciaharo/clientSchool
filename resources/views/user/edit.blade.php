@@ -6,7 +6,6 @@
     <div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-12">
         <div class="max-w-3xl mx-auto px-6">
 
-            <!-- Header -->
             <div class="mb-8 text-center">
                 <h1 class="text-4xl font-extrabold text-gray-800 mb-2">
                     Editar Usuario
@@ -17,7 +16,6 @@
                 </a>
             </div>
 
-            <!-- Card -->
             <div class="bg-white shadow-xl rounded-2xl p-8">
 
                 <form action="/users/{{$data['id']}}" method="POST" class="space-y-6">
