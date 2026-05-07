@@ -64,6 +64,46 @@ class SubjectsController extends Controller
         return redirect('/subjects')->with('success', 'Asignatura creada');
     }
 
+    public function edit(String $code)
+    {
+        $token = session('token');
+
+        $response = Http::withToken($token)
+            ->get(env('API_URL') . "/subjects/$code");
+        $teachers = Http::withToken($token)
+            ->get(env('API_URL') . '/teachers')
+            ->json();
+        $courses = Http::withToken($token)
+            ->get(env('API_URL') . '/courses')
+            ->json();
+        $data = $response->json();
+        //dd($data, $teachers, $courses);
+        return view('subject.edit', [
+            'data' => $data,
+            'teachers' => $teachers,
+            'courses' => $courses
+        ]);
+    }
+
+
+    public function update(Request $request)
+    {
+        $token = session('token');
+        $response = Http::withToken($token)->put(env('API_URL') . '/subjects/' . $request->code, [
+            'code_subject' => $request->code,
+            'name_subject' => $request->name,
+            'duration' => $request->duration,
+            'code_teacher' => $request->teacher_code,
+            'code_course' => $request->course_code
+        ]);
+        if ($response->failed()) {
+            return back()->withErrors(['error' => $response->json('message') ?? 'Error desconocido']);
+        }
+        return redirect('/subjects')->with('success', 'Asignatura actualizada');
+    }
+
+
+
 
     public function delete(String $code)
     {
