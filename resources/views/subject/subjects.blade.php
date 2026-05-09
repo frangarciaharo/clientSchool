@@ -8,6 +8,9 @@
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-800">Asignaturas</h1>
                 <p class="text-gray-500 text-sm mt-1">Gestión de asignaturas</p>
+                <a href="/subjects/create" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
+                    Crear Asignatura
+                </a>
             </div>
 
             <div class="bg-white w-[800px] shadow-lg rounded-2xl overflow-hidden">
@@ -41,8 +44,8 @@
                                             {{$item['duration']}}
                                         </td>
                                         <td class="px-6 py-4 font-medium text-gray-800">
-                                            @if($item['teachercode'])
-                                                 {{$item['teachercode']}}
+                                            @if($item['teacher']['code'])
+                                                 {{$item['teacher']['user']['name']}} {{$item['teacher']['user']['lastname']}}
                                             @else
                                                 No asignado
                                             @endif
@@ -53,17 +56,21 @@
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex justify-end gap-4 text-lg">
 
-                                                <a href="#" class="text-gray-400 hover:text-indigo-600 transition">
+                                                 <a href="/subjects/{{$item['code_subject']}}" class="text-gray-400 hover:text-indigo-600 transition">
                                                     <span class="material-symbols-outlined">visibility</span>
                                                 </a>
 
-                                                <a href="#" class="text-gray-400 hover:text-green-600 transition">
+                                                <a href="/subjects/{{$item['code_subject']}}/edit" class="text-gray-400 hover:text-green-600 transition">
                                                     <span class="material-symbols-outlined">edit</span>
                                                 </a>
 
-                                                <a href="#" class="text-gray-400 hover:text-red-600 transition">
-                                                    <span class="material-symbols-outlined">delete</span>
-                                                </a>
+                                                <form action="/subjects/{{$item['code_subject']}}" method="POST" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-gray-400 hover:text-red-600 transition cursor-pointer">
+                                                        <span class="material-symbols-outlined">delete</span>
+                                                    </button>
+                                                </form>
 
                                             </div>
                                         </td>
@@ -76,7 +83,7 @@
                     </div>
                 @else
                     <div class="text-center py-12">
-                        <p class="text-gray-500">No users available</p>
+                        <p class="text-gray-500">No subjects available</p>
                     </div>
                 @endif
 
