@@ -29,7 +29,7 @@ class TeachersController extends Controller
             'data' => $data
         ]);
     }
-        public function edit(String $code)
+    public function edit(String $code)
     {
          $token = session('token');
 
@@ -48,6 +48,7 @@ class TeachersController extends Controller
         $response = Http::withToken($token)
             ->get(env('API_URL') . '/users');
         $users = $response->json();
+        
         return view('teacher.create', [
             'users' => $users
         ]);

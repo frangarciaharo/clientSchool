@@ -20,28 +20,22 @@
                     @csrf
                     <div>
                         <label for="code" class="block text-sm font-semibold text-gray-600 mb-1">
-                            Codigo del Curso
+                            Codigo de la asignatura
                         </label>
                         <input type="text" name="code" id="code" required class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                     </div>
                     <div>
                         <label for="name" class="block text-sm font-semibold text-gray-600 mb-1">
-                            Nombre del Curso
+                            Nombre de la asignatura
                         </label>
                         <input type="text" name="name" id="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                     </div>
-                    <div>
-                        <label for="acronym" class="block text-sm font-semibold text-gray-600 mb-1">
-                            Acronimo del Curso
-                        </label>
-                        <input type="text" name="acronym" id="acronym" required class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-                    </div>
-                    <div>
                         <label for="duration" class="block text-sm font-semibold text-gray-600 mb-1">
                             Duración del Curso
                         </label>
                         <input type="number" name="duration" id="duration" required class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                     </div>
+
                     <div class="flex justify-end gap-3 pt-4">
                         <a href="/courses"
                            class="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition font-medium">
