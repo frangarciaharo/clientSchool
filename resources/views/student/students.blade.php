@@ -47,8 +47,8 @@
                                             {{$item['user']['email']}}
                                         </td>
                                         <td class="px-6 py-4 font-medium text-gray-800">
-                                            <a href="/courses/{{$item['user']['course']}}">
-                                                {{$item['user']['course']}}
+                                            <a href="/courses/{{$item['user']['course_code']}}">
+                                                {{$item['user']['course_code']}}
                                             </a>
                                         </td>
                                         <td class="px-6 py-4 text-right">
