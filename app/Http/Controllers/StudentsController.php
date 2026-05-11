@@ -33,12 +33,14 @@ class StudentsController extends Controller
     {
          $token = session('token');
 
-        $response = Http::withToken($token)
+        $student = Http::withToken($token)
             ->get(env('API_URL') . "/students/$code");
-
-        $data = $response->json();
+        $courses = Http::withToken($token)
+            ->get(env('API_URL') . '/courses');
+        //dd($student->json(), $courses->json());
         return view('student.edit', [
-            'data' => $data
+            'student' => $student->json(),
+            'courses' => $courses->json()
         ]);
     }
 
@@ -48,26 +50,51 @@ class StudentsController extends Controller
         $token = session('token');
         $response = Http::withToken($token)
             ->get(env('API_URL') . '/users');
+        $courses = Http::withToken($token)
+            ->get(env('API_URL') . '/courses');
         $users = $response->json();
         return view('student.create', [
-            'users' => $users
+            'users' => $users,
+            'courses' => $courses->json()
         ]);
     }
 
     public function store(Request $request)
     {
+
         $token = session('token');
         $response = Http::withToken($token)->post(env('API_URL') . '/students', [
             'code_student' => $request->code,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'course_id' => $request->course_id
         ]);
         if ($response->failed()) {
             return back()->withErrors(['error' => $response->json('message') ?? 'Error desconocido']);
         }
         return redirect('/students')->with('success', 'Alumno creado');
     }
+    public function update(Request $request, $code)
+    {
+        //dd($request->all(), $code);
+        $token = session('token');
 
+        $response = Http::withToken($token)->put(
+            env('API_URL') . "/students/$code",
+            [
+                "code_student" => $code,
+                "user_id" => $request->user_id,
+                "course_id" => $request->course_id
+            ]
+        );
 
+        if ($response->failed()) {
+            return back()->withErrors([
+                'error' => $response->json('msg') ?? 'Error desconocido'
+            ]);
+        }
+
+        return redirect('/students')->with('success', 'Alumno actualizado');
+    }
     public function delete(String $code)
     {
         $token = session('token');
