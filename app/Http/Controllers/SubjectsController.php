@@ -77,7 +77,7 @@ class SubjectsController extends Controller
             ->get(env('API_URL') . '/courses')
             ->json();
         $data = $response->json();
-        //dd($data, $teachers, $courses);
+        //dd($data);
         return view('subject.edit', [
             'data' => $data,
             'teachers' => $teachers,

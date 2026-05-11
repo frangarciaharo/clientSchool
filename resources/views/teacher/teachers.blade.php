@@ -25,6 +25,7 @@
                                     <th class="px-6 py-4">Nombre</th>
                                     <th class="px-6 py-4">Apellidos</th>
                                     <th class="px-6 py-4">Email</th>
+                                    <th class="px-6 py-4">Curso</th>
                                     <th class="px-6 py-4 text-right">Acciones</th>
                                 </tr>
                             </thead>
@@ -43,6 +44,13 @@
                                         </td>
                                         <td class="px-6 py-4 font-medium text-gray-800">
                                             {{$item['user']['email']}}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-800">
+                                            @if($item['user']['course_code'])
+                                                {{$item['user']['course_code']}}
+                                            @else
+                                                No asignado
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex justify-end gap-4 text-lg">

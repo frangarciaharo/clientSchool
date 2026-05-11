@@ -37,7 +37,6 @@ class StudentsController extends Controller
             ->get(env('API_URL') . "/students/$code");
         $courses = Http::withToken($token)
             ->get(env('API_URL') . '/courses');
-        //dd($student->json(), $courses->json());
         return view('student.edit', [
             'student' => $student->json(),
             'courses' => $courses->json()
@@ -83,7 +82,7 @@ class StudentsController extends Controller
             [
                 "code_student" => $code,
                 "user_id" => $request->user_id,
-                "course_id" => $request->course_id
+                "course_code" => $request->course_id
             ]
         );
 

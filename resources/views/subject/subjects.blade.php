@@ -43,9 +43,9 @@
                                         <td class="px-6 py-4 font-medium text-gray-800">
                                             {{$item['duration']}}
                                         </td>
-                                        <td class="px-6 py-4 font-medium text-gray-800">
-                                            @if($item['teacher']['code'])
-                                                 {{$item['teacher']['user']['name']}} {{$item['teacher']['user']['lastname']}}
+                                       <td class="px-6 py-4 font-medium text-gray-800">
+                                            @if(!empty($item['teacher']))
+                                                {{ $item['teacher']['user']['name'] }} {{ $item['teacher']['user']['lastname'] }}
                                             @else
                                                 No asignado
                                             @endif

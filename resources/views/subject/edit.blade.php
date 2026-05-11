@@ -36,16 +36,22 @@
                         <label for="name" class="block text-sm font-semibold text-gray-600 mb-1">
                             Profesor de la Asignatura
                         </label>
+
                         <section>
                             <select name="teacher_code" id="teacher_code" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg">
 
+                                @php
+                                    $currentTeacher = $data['teacher']['code'] ?? null;
+                                @endphp
+
+                                <option value="">-- Sin asignar --</option>
+
                                 @foreach($teachers as $teacher)
                                     <option value="{{ $teacher['code'] }}"
-                                        {{ $teacher['code'] === $data['teacher']['code'] ? 'selected' : '' }}>
+                                        @selected($currentTeacher === $teacher['code'])>
 
-                                        {{ $teacher['user']['name'] }}
-                                        {{ $teacher['user']['lastname'] }}
+                                        {{ $teacher['user']['name'] }} {{ $teacher['user']['lastname'] }}
 
                                     </option>
                                 @endforeach

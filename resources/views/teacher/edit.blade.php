@@ -16,42 +16,56 @@
             </div>
 
             <div class="bg-white shadow-xl rounded-2xl p-8">
-
-                <form action="/teachers" method="POST" class="space-y-6">
+                <form action="/teachers/{{ $data['code'] }}" method="POST" class="space-y-6">
                     @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="user_id" value="{{ $data['user']['id'] ?? '' }}">
+
                     <div>
-                        <label for="code" class="block text-sm font-semibold text-gray-600 mb-1">
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">
                             Codigo del Profesor
                         </label>
-                        <input type="text" name="code" id="code" required readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg cursor-not-allowed" value="{{$data['code']}}">
+                        <input type="text" name="code_teacher" readonly
+                            value="{{ $data['code'] }}"
+                            class="w-full px-4 py-2 border rounded-lg bg-gray-100">
                     </div>
+
                     <div>
-                        <label for="user" class="block text-sm font-semibold text-gray-600 mb-1">
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">
                             Usuario Asociado
                         </label>
-                        <input type="text" name="user" id="user" readonly value="{{$data['user']['name']}} {{$data['user']['lastname']}} ({{$data['user']['email']}})"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg cursor-not-allowed">
+                        <div class="w-full px-4 py-2 border rounded-lg bg-gray-100">
+                            {{ $data['user']['name'] }} {{ $data['user']['lastname'] }}
+                            ({{ $data['user']['email'] }})
+                        </div>
                     </div>
+
                     <div>
-                        <label for="course" class="block text-sm font-semibold text-gray-600 mb-1">
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">
                             Cursos
                         </label>
-                        <select name="course" id="course" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        <select name="course_code" class="w-full px-4 py-2 border rounded-lg">
                             <option value="">Seleccionar Curso</option>
-                            <option value="1">Curso 1</option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course['codeCourse'] }}"
+                                    {{ ($data['user']['course_code'] ?? null) == $course['codeCourse'] ? 'selected' : '' }}>
+                                    {{ $course['namecourse'] }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
+
                     <div class="flex justify-end gap-3 pt-4">
-                        <a href="/teachers"
-                           class="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition font-medium">
+                        <a href="/teachers" class="px-5 py-2 bg-gray-200 rounded-lg">
                             Cancelar
                         </a>
 
-                        <button type="submit"class="cursor-pointer px-6 py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow-md hover:shadow-lg transition">
+                        <button type="submit"
+                                class="px-6 py-2 bg-indigo-600 text-white rounded-lg">
                             Guardar Profesor
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>
