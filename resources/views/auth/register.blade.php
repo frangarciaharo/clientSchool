@@ -35,7 +35,7 @@
             <span class="px-3 text-sm text-white">or</span>
             <div class="flex-grow h-px bg-white"></div>
         </div>
-        <form method="POST" action="/login" class="space-y-5">
+        <form method="POST" action="/register" class="space-y-5">
             @csrf
 
             <div>
@@ -91,12 +91,12 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-white mb-1">
-                    Birthday
+                    birthdate
                 </label>
 
                 <input type="date"
-                    name="birthday"
-                    value="{{ old('birthday') }}"
+                    name="birthdate"
+                    value="{{ old('birthdate') }}"
                     class="w-full rounded-lg border border-gray-300 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
                     autofocus>
@@ -154,14 +154,14 @@
 
             <button type="submit"
                 class="w-full bg-blue-400 text-white py-2.5 rounded-lg font-medium hover:bg-blue-900 transition cursor-pointer">
-                Sign In
+                Sign Up
             </button>
         </form>
 
         <p class="text-center text-white mt-6">
-            Don't have an account?
+            You have an account?
             <a href="/register" class=" font-medium hover:underline">
-                Create one
+                Sign In
             </a>
         </p>
 

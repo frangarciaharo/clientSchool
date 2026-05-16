@@ -1,32 +1,46 @@
 <?
 
 namespace App\Http\Controllers\Auth;
-
-
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class Register extends Controller
 {
     public function store(Request $request)
     {
-        // Example validation
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
+        //dd($request->all());
+        $token = session('token');
+        $birthdate = \DateTime::createFromFormat('Y-m-d', $request->birthdate);
+        $response = Http::withToken($token)->post(env('API_URL') . '/users', [
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'password' => $request->password,
+            'dni' => $request->dni,
+            'role' => 'guest',
+            'birthdate' => $birthdate ? $birthdate->format('d-m-Y') : null,
         ]);
-
-        // Create user (assuming you have App\Models\User)
-        $user = \App\Models\User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        // Log them in
-        \Illuminate\Support\Facades\Auth::login($user);
-
-        return redirect('/');
+        if ($response->failed()) {
+            $apiErrors = $response->json('errors');
+            if ($apiErrors) {
+                $formattedErrors = [];
+                foreach ($apiErrors as $field => $messages) {
+                    if (is_array($messages)) {
+                        $formattedErrors[$field] = $messages;
+                    } else {
+                        $formattedErrors[$field] = [$messages];
+                    }
+                }
+                return back()
+                    ->withErrors(new MessageBag($formattedErrors))
+                    ->withInput();
+            }
+            return back()
+                ->withErrors(['error' => $response->json('message') ?? 'Error desconocido'])
+                ->withInput();
+        }
+        return redirect('/login')->with('success', 'Usuario creado');
     }
 }
