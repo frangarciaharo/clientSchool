@@ -80,9 +80,9 @@ class StudentsController extends Controller
         $response = Http::withToken($token)->put(
             env('API_URL') . "/students/$code",
             [
-                "code_student" => $code,
+                "code" => $code,
                 "user_id" => $request->user_id,
-                "course_code" => $request->course_id
+                "course_code" => $request->course_code
             ]
         );
 
