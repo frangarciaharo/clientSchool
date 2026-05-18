@@ -13,14 +13,26 @@
                 </h1>
 
                 <nav class="flex items-center gap-6 text-sm font-medium">
-                    <x-nav-link href="/" class="text-white/90 hover:text-white transition">
-                        Dashboard
-                    </x-nav-link>
-                    <x-nav-link href="/login" class="text-white/90 hover:text-white transition">
-                        Login
-                    </x-nav-link>
-                </nav>
 
+                        <x-nav-link href="/" class="text-white/90 hover:text-white transition">
+                            Dashboard
+                        </x-nav-link>
+                        @if(authUser())
+                            <x-nav-link>
+                                <h1>Hola {{ authUser()?->email }}</h1>
+                            </x-nav-link>
+                            <x-nav-link>
+                                <a href="/logout" class="text-white hover:underline">
+                                    Logout
+                                </a>
+                            </x-nav-link>
+                        @else
+                            <x-nav-link href="/login" class="text-white/90 hover:text-white transition">
+                                Login
+                            </x-nav-link>
+                        @endif
+
+                </nav>
             </div>
         </header>
         <main>

@@ -12,13 +12,19 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::view('/login', 'auth.login')
-    ->middleware('guest')
-    ->name('login');
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+
+Route::post('/login', \App\Http\Controllers\Auth\Login::class)->name('login');
 
 
 Route::get('/register', function () {
     return view('auth.register');
+});
+Route::get('/logout', function () {
+    session()->forget('jwt');
+    return redirect('/login');
 });
 
 Route::post('/register', [Register::class, 'store']);
